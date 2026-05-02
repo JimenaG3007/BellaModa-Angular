@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist/bella-moda/browser"
+
+# Regla para Single Page Applications (SPA) como Angular
+# Evita los errores 404 cuando recargas la página en rutas distintas a la de inicio
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
