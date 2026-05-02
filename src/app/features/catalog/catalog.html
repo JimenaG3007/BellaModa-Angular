@@ -1,0 +1,47 @@
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+  <!-- Header -->
+  <div class="text-center mb-10">
+    <h2 class="font-playfair text-4xl text-text mb-3">Nuestra Colección</h2>
+    <div class="w-16 h-0.5 bg-primary mx-auto mb-4"></div>
+    <p class="text-text-muted">Encuentra tu estilo perfecto</p>
+  </div>
+
+  <!-- Filtros -->
+  <div class="flex flex-wrap justify-center gap-3 mb-10">
+    @for (cat of categories; track cat.key) {
+      <button (click)="setFilter(cat.key)"
+              class="px-5 py-2 rounded-full text-xs uppercase tracking-widest font-medium transition-all duration-300"
+              [class]="activeFilter() === cat.key
+                ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                : 'bg-white text-text-muted border border-border hover:border-primary hover:text-primary'">
+        {{ cat.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="flex justify-center py-20">
+      <div class="w-12 h-12 border-4 border-accent border-t-primary rounded-full animate-spin"></div>
+    </div>
+  }
+
+  <!-- Grid de productos -->
+  @if (!loading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      @for (product of filteredProducts(); track product.id) {
+        <app-product-card
+          [product]="product"
+          (addToCart)="onAddToCart($event)"
+        />
+      } @empty {
+        <div class="col-span-full text-center py-16">
+          <p class="text-5xl mb-4">👗</p>
+          <p class="text-text-muted text-lg">No hay productos en esta categoría</p>
+        </div>
+      }
+    </div>
+  }
+
+</section>

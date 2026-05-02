@@ -1,0 +1,36 @@
+@keyframes hero-title {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-line {
+  from { width: 0; }
+  to { width: 80px; }
+}
+@keyframes hero-subtitle {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-desc {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes hero-cta {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-hero-title {
+  animation: hero-title 0.8s ease-out;
+}
+.animate-hero-line {
+  animation: hero-line 0.6s ease-out 0.3s both;
+}
+.animate-hero-subtitle {
+  animation: hero-subtitle 0.7s ease-out 0.5s both;
+}
+.animate-hero-desc {
+  animation: hero-desc 0.8s ease-out 0.7s both;
+}
+.animate-hero-cta {
+  animation: hero-cta 0.6s ease-out 0.9s both;
+}

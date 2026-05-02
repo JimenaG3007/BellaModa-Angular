@@ -1,0 +1,28 @@
+@if (visible()) {
+  <div class="modal-backdrop fixed inset-0 z-[100] bg-black/50 flex items-center justify-center p-4"
+       (click)="onBackdropClick($event)">
+    <div class="bg-white rounded-2xl p-8 sm:p-10 max-w-md w-full text-center shadow-2xl animate-modal-in">
+
+      <!-- Icono -->
+      <div class="text-5xl mb-4">
+        @switch (type()) {
+          @case ('success') { <span>✨</span> }
+          @case ('error') { <span>⚠️</span> }
+          @case ('info') { <span>💡</span> }
+        }
+      </div>
+
+      <!-- Título -->
+      <h2 class="font-playfair text-2xl text-text mb-3">{{ title() }}</h2>
+
+      <!-- Mensaje -->
+      <p class="text-text-muted mb-8 leading-relaxed">{{ message() }}</p>
+
+      <!-- Botón -->
+      <button (click)="onClose()"
+              class="bg-secondary hover:bg-secondary-dark text-white px-8 py-3 rounded-lg text-sm uppercase tracking-widest font-medium transition-all duration-300 hover:shadow-lg active:scale-95">
+        Cerrar
+      </button>
+    </div>
+  </div>
+}

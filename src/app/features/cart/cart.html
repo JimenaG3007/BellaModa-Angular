@@ -1,0 +1,99 @@
+<section class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+
+  <!-- Header -->
+  <div class="text-center mb-10">
+    <h2 class="font-playfair text-4xl text-text mb-3">Tu Carrito</h2>
+    <div class="w-16 h-0.5 bg-primary mx-auto mb-4"></div>
+    <p class="text-text-muted">{{ totalItems() }} producto(s) en tu carrito</p>
+  </div>
+
+  @if (isEmpty()) {
+    <!-- Carrito vacío -->
+    <div class="text-center py-20 bg-white rounded-2xl border border-border shadow-sm">
+      <p class="text-6xl mb-6">🛒</p>
+      <p class="text-text-muted text-lg mb-6">Tu carrito está vacío</p>
+      <a routerLink="/catalogo"
+         class="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg text-sm uppercase tracking-widest transition-all duration-300 hover:shadow-lg">
+        Ir al Catálogo
+      </a>
+    </div>
+  } @else {
+    <!-- Items del carrito -->
+    <div class="space-y-4 mb-8">
+      @for (item of items(); track item.product.id) {
+        <div class="flex items-center gap-4 sm:gap-6 bg-white rounded-2xl p-4 sm:p-5 border border-border shadow-sm hover:shadow-md transition-shadow duration-300">
+          <!-- Imagen -->
+          <img [src]="item.product.imagen" [alt]="item.product.nombre"
+               class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl">
+
+          <!-- Info -->
+          <div class="flex-1 min-w-0">
+            <h3 class="font-playfair text-base sm:text-lg text-text truncate">{{ item.product.nombre }}</h3>
+            <p class="text-text-muted text-sm">S/{{ item.product.precio }}.00</p>
+          </div>
+
+          <!-- Controles de cantidad -->
+          <div class="flex items-center gap-2">
+            <button (click)="removeOne(item.product.id)"
+                    class="w-8 h-8 rounded-full border border-border text-text-muted hover:border-primary hover:text-primary transition-colors flex items-center justify-center text-lg">
+              −
+            </button>
+            <span class="w-8 text-center font-semibold text-text">{{ item.quantity }}</span>
+            <button (click)="addOne(item.product.id)"
+                    class="w-8 h-8 rounded-full border border-border text-text-muted hover:border-primary hover:text-primary transition-colors flex items-center justify-center text-lg">
+              +
+            </button>
+          </div>
+
+          <!-- Subtotal -->
+          <div class="text-right min-w-[80px] hidden sm:block">
+            <p class="font-semibold text-text">S/{{ item.product.precio * item.quantity }}.00</p>
+          </div>
+
+          <!-- Eliminar -->
+          <button (click)="removeItem(item.product.id)"
+                  class="text-text-light hover:text-danger transition-colors text-xl p-1">
+            ✕
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Resumen -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 border border-border shadow-sm">
+      <div class="flex justify-between items-center mb-6">
+        <span class="text-text-muted text-lg">Total</span>
+        <span class="font-playfair text-3xl text-text">S/{{ totalPrice() }}.00</span>
+      </div>
+      <button (click)="checkout()"
+              class="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-xl text-sm uppercase tracking-[3px] font-semibold transition-all duration-300 hover:shadow-xl active:scale-[0.98]">
+        Comprar Ahora
+      </button>
+    </div>
+  }
+</section>
+
+<!-- Modales -->
+<app-modal
+  [title]="'¡Gracias por tu compra!'"
+  [message]="'Tu pedido ha sido registrado con éxito. Recibirás un correo con los detalles.'"
+  [type]="'success'"
+  [visible]="showSuccessModal()"
+  (close)="closeModal()"
+/>
+
+<app-modal
+  [title]="'Carrito vacío'"
+  [message]="'No has añadido ningún producto al carrito.'"
+  [type]="'info'"
+  [visible]="showEmptyModal()"
+  (close)="closeModal()"
+/>
+
+<app-modal
+  [title]="'Usuario no registrado'"
+  [message]="'Debe registrarse antes de realizar una compra.'"
+  [type]="'error'"
+  [visible]="showRegisterModal()"
+  (close)="closeModal()"
+/>

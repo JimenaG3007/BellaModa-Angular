@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== ESTILOS GLOBALES ===== */
+body {
+  font-family: theme('fontFamily.montserrat');
+  background-color: theme('colors.background');
+  color: theme('colors.text.DEFAULT');
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.accent.DEFAULT');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.secondary.DEFAULT');
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.primary.DEFAULT');
+}

@@ -1,0 +1,77 @@
+<section class="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-10">
+  <div class="bg-white rounded-2xl p-8 sm:p-12 max-w-lg w-full border border-accent-dark shadow-lg">
+
+    @if (isRegistered()) {
+      <!-- Ya registrado -->
+      <div class="text-center">
+        <p class="text-5xl mb-4">✨</p>
+        <h2 class="font-playfair text-3xl text-text mb-3">¡Bienvenido/a!</h2>
+        <p class="text-text-muted mb-6">Estás registrado como <b class="text-primary">{{ customerName() }}</b></p>
+        <button (click)="logout()"
+                class="bg-transparent border border-primary text-primary px-6 py-2.5 rounded-lg text-sm uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300">
+          Cerrar Sesión
+        </button>
+      </div>
+    } @else {
+      <!-- Formulario -->
+      <h2 class="font-playfair text-3xl text-text text-center mb-2">Registro de Cliente</h2>
+      <div class="w-12 h-0.5 bg-primary mx-auto mb-8"></div>
+
+      <form (ngSubmit)="onSubmit()" class="space-y-5">
+        <div>
+          <label class="block text-xs text-text-muted uppercase tracking-widest mb-1.5">Nombre</label>
+          <input type="text" [(ngModel)]="form.nombre" name="nombre" placeholder="Ingrese su nombre"
+                 class="w-full px-4 py-3 border border-border rounded-xl bg-background text-text font-montserrat text-sm
+                        focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs text-text-muted uppercase tracking-widest mb-1.5">Apellidos</label>
+          <input type="text" [(ngModel)]="form.apellidos" name="apellidos" placeholder="Ingrese sus apellidos"
+                 class="w-full px-4 py-3 border border-border rounded-xl bg-background text-text font-montserrat text-sm
+                        focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs text-text-muted uppercase tracking-widest mb-1.5">Dirección</label>
+          <input type="text" [(ngModel)]="form.direccion" name="direccion" placeholder="Ingrese su dirección"
+                 class="w-full px-4 py-3 border border-border rounded-xl bg-background text-text font-montserrat text-sm
+                        focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
+        </div>
+
+        <div>
+          <label class="block text-xs text-text-muted uppercase tracking-widest mb-1.5">Correo Electrónico</label>
+          <input type="email" [(ngModel)]="form.correo" name="correo" placeholder="ejemplo@correo.com"
+                 class="w-full px-4 py-3 border border-border rounded-xl bg-background text-text font-montserrat text-sm
+                        focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all">
+        </div>
+
+        <button type="submit" [disabled]="loading()"
+                class="w-full bg-primary hover:bg-primary-dark text-white py-3.5 rounded-xl text-sm uppercase tracking-[3px] font-semibold transition-all duration-300 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed mt-2">
+          @if (loading()) {
+            Registrando...
+          } @else {
+            Registrarse
+          }
+        </button>
+      </form>
+    }
+  </div>
+</section>
+
+<!-- Modales -->
+<app-modal
+  [title]="'Datos registrados con éxito'"
+  [message]="'Proceda con su compra. ¡Bienvenido/a a Bella Moda!'"
+  [type]="'success'"
+  [visible]="showSuccessModal()"
+  (close)="closeModal()"
+/>
+
+<app-modal
+  [title]="'Error en el registro'"
+  [message]="errorMessage()"
+  [type]="'error'"
+  [visible]="showErrorModal()"
+  (close)="closeModal()"
+/>

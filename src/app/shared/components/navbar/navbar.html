@@ -1,0 +1,74 @@
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a routerLink="/" class="font-playfair text-2xl text-text tracking-wide hover:text-primary transition-colors duration-300">
+        Bella Moda
+      </a>
+
+      <!-- Links Desktop -->
+      <div class="hidden md:flex items-center gap-8">
+        <a routerLink="/" routerLinkActive="text-primary font-semibold" [routerLinkActiveOptions]="{exact: true}"
+           class="text-sm uppercase tracking-widest text-text-muted hover:text-primary transition-colors duration-300">
+          Inicio
+        </a>
+        <a routerLink="/catalogo" routerLinkActive="text-primary font-semibold"
+           class="text-sm uppercase tracking-widest text-text-muted hover:text-primary transition-colors duration-300">
+          Catálogo
+        </a>
+        <a routerLink="/contacto" routerLinkActive="text-primary font-semibold"
+           class="text-sm uppercase tracking-widest text-text-muted hover:text-primary transition-colors duration-300">
+          Contacto
+        </a>
+        <a routerLink="/registrar" routerLinkActive="text-primary font-semibold"
+           class="text-sm uppercase tracking-widest text-text-muted hover:text-primary transition-colors duration-300">
+          @if (isRegistered()) {
+            {{ customerName() }}
+          } @else {
+            Registrar
+          }
+        </a>
+        <a routerLink="/admin/nuevo-producto" routerLinkActive="text-primary font-semibold"
+           class="text-sm uppercase tracking-widest text-text-muted hover:text-primary transition-colors duration-300">
+          + Prod
+        </a>
+
+        <!-- Carrito -->
+        <a routerLink="/carrito" class="relative group">
+          <span class="text-xl transition-transform duration-300 group-hover:scale-110 inline-block">🛒</span>
+          @if (totalItems() > 0) {
+            <span class="absolute -top-2 -right-3 bg-primary text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold animate-bounce">
+              {{ totalItems() }}
+            </span>
+          }
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button (click)="toggleMenu()" class="md:hidden p-2 text-text-muted hover:text-primary transition-colors">
+        @if (menuOpen) {
+          <span class="text-2xl">✕</span>
+        } @else {
+          <span class="text-2xl">☰</span>
+        }
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    @if (menuOpen) {
+      <div class="md:hidden pb-4 border-t border-border mt-2 pt-4 space-y-3 animate-fade-in">
+        <a routerLink="/" (click)="closeMenu()" class="block text-sm uppercase tracking-widest text-text-muted hover:text-primary py-2">Inicio</a>
+        <a routerLink="/catalogo" (click)="closeMenu()" class="block text-sm uppercase tracking-widest text-text-muted hover:text-primary py-2">Catálogo</a>
+        <a routerLink="/contacto" (click)="closeMenu()" class="block text-sm uppercase tracking-widest text-text-muted hover:text-primary py-2">Contacto</a>
+        <a routerLink="/registrar" (click)="closeMenu()" class="block text-sm uppercase tracking-widest text-text-muted hover:text-primary py-2">
+          @if (isRegistered()) { {{ customerName() }} } @else { Registrar }
+        </a>
+        <a routerLink="/admin/nuevo-producto" (click)="closeMenu()" class="block text-sm uppercase tracking-widest text-text-muted hover:text-primary py-2">+ Prod</a>
+        <a routerLink="/carrito" (click)="closeMenu()" class="block text-sm uppercase tracking-widest text-text-muted hover:text-primary py-2">
+          🛒 Carrito ({{ totalItems() }})
+        </a>
+      </div>
+    }
+  </div>
+</nav>
